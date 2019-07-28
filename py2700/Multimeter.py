@@ -1,4 +1,4 @@
-from MeasurementType import MeasurementType
+from py2700.MeasurementType import MeasurementType
 import time
 import pyvisa as visa
 
