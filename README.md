@@ -1,2 +1,2 @@
-# py2700
-A Python package to inteface with a Keithley 2700 multimeter.
+# py2700 Python DMM Interface
+A Python package to interface with a Keithley 2700 digital multimeter.

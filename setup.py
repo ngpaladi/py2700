@@ -1,0 +1,21 @@
+import setuptools
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name="py2700_ngpaladi",
+    version="0.0.1",
+    author="ngpaladi",
+    author_email="ngpaladi@noahpaladino.com",
+    description="A Python package to interface with a Keithley 2700 multimeter",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/ngpaladi/py2700",
+    packages=setuptools.find_packages(),
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache License 2.0",
+        "Operating System :: OS Independent",
+    ],
+)
