@@ -19,12 +19,10 @@ class Channel:
         self.measurement_type = measurement_type
         self.unit = unit
 
-    def setup_commands(self):
-        clist = ",(@"+str(id)+")"
-        setup_commands = []
+        clist = ",(@"+str(self.id)+")"
+        self.setup_commands = []
         for line in self.measurement_type.setup_commands:
-            setup_commands.append(line+clist)
-        return setup_commands
+            self.setup_commands.append(line+clist)
     
     def __str__(self):
         return str(self.id)
@@ -133,7 +131,7 @@ class Multimeter:
             self.channels.append(Channel(ch,measurement_type, units))
 
     def setup_scan(self):
-        if len(self.channels <= 0):
+        if len(self.channels) <= 0:
             raise no_channels_exception
 
         list_of_channels_str=""
@@ -148,7 +146,7 @@ class Multimeter:
         self.device.write("TRIG:COUN 1")
 
         for ch in self.channels:
-            for line in ch.setup_commands():
+            for line in ch.setup_commands:
                 self.device.write(line)
 
         self.device.write("SAMP:COUN "+str(len(self.channels)))
