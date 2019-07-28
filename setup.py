@@ -4,10 +4,10 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="py2700_ngpaladi",
+    name="py2700",
     version="0.0.1",
     author="ngpaladi",
-    author_email="ngpaladi@noahpaladino.com",
+    author_email="py2700@noahpaladino.com",
     description="A Python package to interface with a Keithley 2700 multimeter",
     long_description=long_description,
     long_description_content_type="text/markdown",

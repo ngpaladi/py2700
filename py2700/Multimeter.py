@@ -3,6 +3,8 @@ import time
 import pyvisa as visa
 
 invalid_unit_exception = Exception("Invalid Unit Type - Please Use 'C', 'K', or 'F'")
+not_set_up_exception = Exception("Multimeter not set up properly")
+no_channels_exception = Exception("No channels have been defined to set up")
 
 def RemoveUnits(string: str):
     while not (string[-1] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']):
@@ -23,6 +25,9 @@ class Channel:
         for line in self.measurement_type.setup_commands:
             setup_commands.append(line+clist)
         return setup_commands
+    
+    def __str__(self):
+        return str(self.id)
 
 
 class Measurement:
@@ -57,7 +62,7 @@ class ScanResult:
                 channel_index += 1
             entry_index += 1
 
-    def makeCsvRow(self) -> str:
+    def make_csv_row(self):
         string = ""
         for channel in self.channels:
             string = string + \
@@ -65,7 +70,7 @@ class ScanResult:
                 str(self.readings[channel.id].value)+","
         return string[:-1]+"\n"
 
-    def makeCsvHeader(self) -> str:
+    def make_csv_header(self):
         string = ""
         for channel in self.channels:
             string = string + "Channel " + \
@@ -84,6 +89,7 @@ class Multimeter:
         self.connection_string = connection_string
         self.channels = []
         self.connected = False
+        self.setup = False
 
          # Start visa resource manager
         self.resource_manager = visa.ResourceManager("@py")
@@ -127,11 +133,36 @@ class Multimeter:
             self.channels.append(Channel(ch,measurement_type, units))
 
     def setup_scan(self):
+        if len(self.channels <= 0):
+            raise no_channels_exception
+
+        list_of_channels_str=""
+        for ch in self.channels:
+            list_of_channels_str = list_of_channels_str+str(ch)+","
+        list_of_channels_str = list_of_channels_str[:-1]
+        self.list_of_channels_str = list_of_channels_str
+
+        # Start setup for Keithley 2700
+        self.device.write("TRAC:CLE")
+        self.device.write("INIT:CONT OFF")
+        self.device.write("TRIG:COUN 1")
+
         for ch in self.channels:
             for line in ch.setup_commands():
-                self.write(line)
+                self.device.write(line)
+
+        self.device.write("SAMP:COUN "+str(len(self.channels)))
+        self.device.write("ROUT:SCAN (@"+self.list_of_channels_str+")")
+
+        self.device.write("ROUT:SCAN:TSO IMM")
+        self.device.write("ROUT:SCAN:LSEL INT")
+
+        self.setup = True
     
     def scan(self, timestamp:float):
+        if not self.setup:
+            raise not_set_up_exception
+
         self.last_scan_result = ScanResult(self.channels,
                                            [x.strip() for x in self.device.query("READ?").split(',')], timestamp)
         return self.last_scan_result
@@ -162,9 +193,19 @@ class Multimeter:
     def read(self, string: str) -> str:
         return self.device.read(string)
 
+    def make_csv_header(self):
+        if not self.setup:
+            raise not_set_up_exception
+            
+        string = ""
+        for channel in self.channels:
+            string = string + "Channel " + \
+                str(channel.id)+" Time (s),Channel " + \
+                str(channel.id)+" Value ("+str(channel.unit)+"),"
+        return string[:-1]+"\n"
+
     def __str__(self):
         if self.connected:
             return "Connected to device "+str(self.connection_string)+"\n"+self.identify()
         else:
             return "Device "+str(self.connection_string)+" is not yet connected"
-
