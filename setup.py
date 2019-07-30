@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="py2700",
-    version="0.0.4",
+    version="0.0.5",
     author="ngpaladi",
     author_email="py2700@noahpaladino.com",
     description="A Python package to interface with a Keithley 2700 multimeter",
