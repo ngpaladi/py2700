@@ -6,7 +6,8 @@ invalid_thermocouple_type_exception = Exception(
     "Not a suppoorted thermocouple type")
 invalid_thermistor_type_exception = Exception(
     "Not a suppoorted thermistor type")
-
+invalid_reference_juction_type_exception = Exception("Invalid junction type: Please select EXT, INT, or SIM junction type")
+invalid_frtd_type_exception = Exception("Invalid Four-Wire RTD type")
 
 class MeasurementType:
 
@@ -23,12 +24,16 @@ class MeasurementType:
         self.setup_commands = list(setup_commands)
 
     @classmethod
-    def thermocouple(cls, thermocouple_type: str):
+    def thermocouple(cls, thermocouple_type: str, reference_juction_type = "INT"):
         # Defines a Thermocouple
 
         thermocouple_type = thermocouple_type.upper()
         if not (thermocouple_type in ['J', 'K', 'N', 'T', 'E', 'R', 'S', 'B']):
             raise invalid_thermocouple_type_exception
+        
+        if not reference_juction_type in ['INT', 'EXT', 'SIM']:
+            raise invalid_reference_juction_type_exception
+
         setup_commands = ["FUNC 'TEMP'", "TEMP:TRAN TC",
                           "TEMP:TC:TYPE "+str(thermocouple_type), "TEMP:TC:RJUN:RSEL INT"]
 
@@ -43,6 +48,16 @@ class MeasurementType:
         setup_commands = ["FUNC 'TEMP'", "TEMP:TRAN THER",
                           "TEMP:THER:TYPE "+str(resistance_type)]
         return MeasurementType("THER", "TEMP", setup_commands)
+    
+    @classmethod
+    def frtd(cls, frtd_type: str):
+        # Defines a Four-wire RTD
+
+        if not (frtd_type in ['PT100','D100','F100','PT385', 'PT3916']):
+            raise invalid_frtd_type_exception
+        setup_commands = ["FUNC 'TEMP'", "TEMP:TRAN FRTD",
+                          "TEMP:FRTD:TYPE "+str(frtd_type)]
+        return MeasurementType("FRTD", "TEMP", setup_commands)
 
     @classmethod
     def dc_voltage(cls, reading_range: int = -1):
