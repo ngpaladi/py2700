@@ -15,6 +15,9 @@ my_multimeter = DMM.Multimeter('TCPIP::192.168.69.102::1394::SOCKET')
 # Set the default temperature units
 my_multimeter.set_temperature_units('C')
 
+# Set the timeout in ms
+my_multimeter.set_timeout(5000)
+
 # Set Channels 101, 102, and 103 as K-type thermocouples
 my_multimeter.define_channels([101,102,103],
     DMM.MeasurementType.thermocouple('K'))
