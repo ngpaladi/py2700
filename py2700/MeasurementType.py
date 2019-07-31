@@ -6,7 +6,7 @@ invalid_thermocouple_type_exception = Exception(
     "Not a suppoorted thermocouple type")
 invalid_thermistor_type_exception = Exception(
     "Not a suppoorted thermistor type")
-invalid_reference_juction_type_exception = Exception("Invalid junction type: Please select EXT, INT, or SIM junction type")
+invalid_reference_junction_type_exception = Exception("Invalid junction type: Please select EXT, INT, or SIM junction type")
 invalid_frtd_type_exception = Exception("Invalid Four-Wire RTD type")
 
 class MeasurementType:
@@ -24,18 +24,22 @@ class MeasurementType:
         self.setup_commands = list(setup_commands)
 
     @classmethod
-    def thermocouple(cls, thermocouple_type: str, reference_juction_type = "INT"):
+    def thermocouple(cls, thermocouple_type: str, reference_junction_type: str = "INT", reference_junction_temp: float = 0.0):
         # Defines a Thermocouple
 
         thermocouple_type = thermocouple_type.upper()
         if not (thermocouple_type in ['J', 'K', 'N', 'T', 'E', 'R', 'S', 'B']):
             raise invalid_thermocouple_type_exception
         
-        if not reference_juction_type in ['INT', 'EXT', 'SIM']:
-            raise invalid_reference_juction_type_exception
+        if not reference_junction_type in ['INT', 'EXT', 'SIM']:
+            raise invalid_reference_junction_type_exception
+
+        
 
         setup_commands = ["FUNC 'TEMP'", "TEMP:TRAN TC",
-                          "TEMP:TC:TYPE "+str(thermocouple_type), "TEMP:TC:RJUN:RSEL INT"]
+                          "TEMP:TC:TYPE "+str(thermocouple_type), "TEMP:TC:RJUN:RSEL "+reference_junction_type]
+        if reference_junction_type == "SIM":
+            setup_commands.append("TEMP:TC:RJUN:SIM "+str(reference_junction_temp))
 
         return MeasurementType("TC", "TEMP", setup_commands)
 
@@ -46,7 +50,7 @@ class MeasurementType:
         if resistance_type > 10000:
             raise invalid_thermistor_type_exception
         setup_commands = ["FUNC 'TEMP'", "TEMP:TRAN THER",
-                          "TEMP:THER:TYPE "+str(resistance_type)]
+                          "TEMP:THER "+str(resistance_type)]
         return MeasurementType("THER", "TEMP", setup_commands)
     
     @classmethod

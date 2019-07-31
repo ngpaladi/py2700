@@ -88,6 +88,7 @@ class Multimeter:
         self.channels = []
         self.connected = False
         self.setup = False
+        self.temperature_units = 'C'
 
          # Start visa resource manager
         self.resource_manager = visa.ResourceManager("@py")
