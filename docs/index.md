@@ -1,3 +1,10 @@
+---
+layout: default
+title: Home
+nav_order: 1
+---
+
+
 # The Python 2700 Series Digital Multimeter Interface
 An unofficial Python package to interface with a Keithley 2700 digital multimeter.
 
