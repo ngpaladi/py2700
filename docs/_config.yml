@@ -1,2 +1,6 @@
 remote_theme: ngpaladi/just-the-docs
 search_enabled: true
+title: py2700
+description: A Jekyll theme for documentation
+baseurl: "/py2700" # the subpath of your site, e.g. /blog
+url: "https://www.noahpaladino.com"
