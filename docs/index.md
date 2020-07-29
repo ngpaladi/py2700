@@ -11,6 +11,8 @@ An unofficial Python package to interface with a Keithley 2700 digital multimete
 ## Introduction
 The py2700 package is designed to allow for easy access to common SCPI commands sent to the multimeter. From setting up channels, to reading data, to even writing to the display, the package allows the user to quickly and easily produce working, readable Python code to collect data from their device, and ultimately avoid being forced to pay for a license for Keithley Kickstart.
 
+To install the latest version please run `pip install py2700`
+
 ## Example Program
 ```python 
 import py2700 as DMM
