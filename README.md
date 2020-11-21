@@ -1,4 +1,6 @@
 # Unofficial Keithley 2700 Series DMM Interface: py2700
+[![PyPI version](https://badge.fury.io/py/py2700.svg)](https://badge.fury.io/py/py2700)
+
 A Python package to interface with a Keithley 2700 digital multimeter.
 
 ## Introduction
