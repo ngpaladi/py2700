@@ -1,3 +1,11 @@
+"""
+==============
+Multimeter.py
+==============
+
+"""
+
+
 from py2700.MeasurementType import MeasurementType
 import time
 import pyvisa as visa
@@ -13,7 +21,9 @@ def RemoveUnits(string: str):
 
 
 class Channel:
-    # Channel Definition
+    """
+    The :class:`Channel` class associates each channel on the multimeter with a :class:`MeasurementType` and performs the necessary initialization procedure.
+    """
     def __init__(self, id: int, measurement_type: MeasurementType, unit: str):
         self.id = id
         self.measurement_type = measurement_type
