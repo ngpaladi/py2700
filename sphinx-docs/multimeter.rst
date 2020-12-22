@@ -23,7 +23,7 @@ It is good practice to set the value for the timeout period of the multimeter ne
 
 Setting the Temperature Units
 --------------------------------
-If you are using temperature probes, set the units (`C`,`F`, or `K`):
+If you are using temperature probes, set the units (:code:`C`,:code:`F`, or :code:`K`):
 .. code-block::
 
     my_multimeter.set_temperature_units('C')
