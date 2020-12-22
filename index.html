@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The py2700 Digital Multimeter Interface &mdash; py2700 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Multimeter" href="multimeter.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home" alt="Documentation Home"> py2700
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multimeter.html">Multimeter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measurement-type.html">Measurement Types</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">py2700</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>The py2700 Digital Multimeter Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="the-py2700-digital-multimeter-interface">
+<h1>The py2700 Digital Multimeter Interface<a class="headerlink" href="#the-py2700-digital-multimeter-interface" title="Permalink to this headline">¶</a></h1>
+<p>An unofficial Python package to interface with a Keithley 2700 digital multimeter.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The py2700 package is designed to allow for easy access to common SCPI commands sent to the multimeter. From setting up channels, to reading data, to even writing to the display, the package allows the user to quickly and easily produce working, readable Python code to collect data from their device, and ultimately avoid being forced to pay for a license for Keithley Kickstart.</p>
+<p>To install the latest version please run <cite>pip install py2700</cite></p>
+</div>
+<div class="section" id="example-program">
+<h2>Example Program<a class="headerlink" href="#example-program" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">py2700</span> <span class="k">as</span> <span class="nn">DMM</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Connect to a Keithley 2701 over TCP/IP</span>
+<span class="n">my_multimeter</span> <span class="o">=</span> <span class="n">DMM</span><span class="o">.</span><span class="n">Multimeter</span><span class="p">(</span><span class="s1">&#39;TCPIP::192.168.69.102::1394::SOCKET&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set the default temperature units</span>
+<span class="n">my_multimeter</span><span class="o">.</span><span class="n">set_temperature_units</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set the timeout in ms</span>
+<span class="n">my_multimeter</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+
+<span class="c1"># Set Channels 101, 102, and 103 as K-type thermocouples</span>
+<span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">DMM</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">thermocouple</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">))</span>
+
+<span class="c1"># Setup for reading:</span>
+<span class="c1">#   This needs to be completed after channel</span>
+<span class="c1">#   definitions and before scanning</span>
+<span class="n">my_multimeter</span><span class="o">.</span><span class="n">setup_scan</span><span class="p">()</span>
+
+<span class="c1"># Scan the channels, given the timestamp you want</span>
+<span class="c1"># for the reading</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">my_multimeter</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">))</span>
+
+<span class="c1"># Print out a CSV header for the result</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">make_csv_header</span><span class="p">())</span>
+
+<span class="c1"># Print out a CSV row for the result</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">make_csv_row</span><span class="p">())</span>
+
+<span class="c1"># Safely disconnect from the multimeter</span>
+<span class="n">my_multimeter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
+<p>Please submit an issue if you encounter a bug and please email any questions or requests to <a class="reference external" href="mailto:py2700&#37;&#52;&#48;noahpaladino&#46;com">py2700<span>&#64;</span>noahpaladino<span>&#46;</span>com</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="multimeter.html" class="btn btn-neutral float-right" title="Multimeter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Noah Paladino
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Measurement Types &mdash; py2700 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Multimeter" href="multimeter.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> py2700
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multimeter.html">Multimeter</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Measurement Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#voltage">Voltage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dc-voltage">DC Voltage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ac-voltage">AC Voltage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#current">Current</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dc-current">DC Current</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ac-current">AC Current</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#resistance">Resistance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#temperature">Temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thermocouple">Thermocouple</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#frtd">FRTD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thermistor">Thermistor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">py2700</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Measurement Types</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="measurement-types">
+<h1>Measurement Types<a class="headerlink" href="#measurement-types" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">MeasurementType</span></code> class is used to set channel reading types for a 2700 series multimeter. The following examples assume we are setting channels 101,102, and 103 to the specified measurement type.</p>
+<div class="section" id="voltage">
+<h2>Voltage<a class="headerlink" href="#voltage" title="Permalink to this headline">¶</a></h2>
+<p>A channel can be set to read in either DC or AC voltage. Ranging can optionally be provided as an integer but is set to automatic by default. Ranges specified outside the capabilities of the device will be set to automatic.</p>
+<div class="section" id="dc-voltage">
+<h3>DC Voltage<a class="headerlink" href="#dc-voltage" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">dc_voltage</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ac-voltage">
+<h3>AC Voltage<a class="headerlink" href="#ac-voltage" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">ac_voltage</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="current">
+<h2>Current<a class="headerlink" href="#current" title="Permalink to this headline">¶</a></h2>
+<p>A channel can be set to read in either DC or AC currents. Ranging can optionally be provided as an integer but is set to automatic by default. Ranges specified outside the capabilities of the device will be set to automatic.</p>
+<div class="section" id="dc-current">
+<h3>DC Current<a class="headerlink" href="#dc-current" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">dc_current</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ac-current">
+<h3>AC Current<a class="headerlink" href="#ac-current" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">ac_current</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="resistance">
+<h2>Resistance<a class="headerlink" href="#resistance" title="Permalink to this headline">¶</a></h2>
+<p>A channel can also be set to read in resistance. Ranging can optionally be provided as an integer but is set to automatic by default. Ranges specified outside the capabilities of the device will be set to automatic.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">resistance</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="temperature">
+<h2>Temperature<a class="headerlink" href="#temperature" title="Permalink to this headline">¶</a></h2>
+<p>The Keithley 2700 can read in data from a variety of temperature probe types.</p>
+<p>First, ensure you have set units for temperature :
+(<cite>C</cite>,`F`, or <cite>K</cite>):
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">set_temperature_units</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="thermocouple">
+<h2>Thermocouple<a class="headerlink" href="#thermocouple" title="Permalink to this headline">¶</a></h2>
+<p>Thermocouples can be of the type J, K, N, T, E, R, S, or B with junction type internal (<code class="code docutils literal notranslate"><span class="pre">INT</span></code>), external (<code class="code docutils literal notranslate"><span class="pre">EXT</span></code>), or simulated (<code class="code docutils literal notranslate"><span class="pre">SIM</span></code>). The default junction type is internal. Using a simulated reference junction requires an additional float to set the simulated junction temperature (0 by default).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">thermocouple</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">,</span><span class="s1">&#39;SIM&#39;</span><span class="p">,</span><span class="mf">5.0</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="section" id="frtd">
+<h3>FRTD<a class="headerlink" href="#frtd" title="Permalink to this headline">¶</a></h3>
+<p>FRTD types of PT100, D100, F100, PT385, PT3916 are supported.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">frtd</span><span class="p">(</span><span class="s1">&#39;F100&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="thermistor">
+<h3>Thermistor<a class="headerlink" href="#thermistor" title="Permalink to this headline">¶</a></h3>
+<p>Thermistors are supported, but the resistance type must be passed as an integer. Unsupported values will throw an exception.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">thermistor</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="multimeter.html" class="btn btn-neutral float-left" title="Multimeter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Noah Paladino
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

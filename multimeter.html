@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Multimeter &mdash; py2700 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Measurement Types" href="measurement-type.html" />
+    <link rel="prev" title="The py2700 Digital Multimeter Interface" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> py2700
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Multimeter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#connection">Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-the-timeout">Setting the Timeout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-the-temperature-units">Setting the Temperature Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-channels">Setting Up the Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#completing-a-scan">Completing a Scan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-a-message-on-the-screen">Writing a Message on the Screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#safely-disconnecting">Safely Disconnecting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-usage-scpi-commands">Advanced Usage: SCPI Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="measurement-type.html">Measurement Types</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">py2700</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Multimeter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="multimeter">
+<h1>Multimeter<a class="headerlink" href="#multimeter" title="Permalink to this headline">¶</a></h1>
+<p>The multimeter class is used to interact with a 2700 series multimeter.</p>
+<div class="section" id="connection">
+<h2>Connection<a class="headerlink" href="#connection" title="Permalink to this headline">¶</a></h2>
+<p>To connect to the device, create a <code class="xref py py-class docutils literal notranslate"><span class="pre">Multimeter</span></code> object, passing the connection string as the initialization parameter.</p>
+<p>In the following example we use a TCP/IP Socket connection to a multimeter at IP address 192.168.69.102 and connecting to port 1394:
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span> <span class="o">=</span> <span class="n">py2700</span><span class="o">.</span><span class="n">Multimeter</span><span class="p">(</span><span class="s1">&#39;TCPIP::192.168.69.102::1394::SOCKET&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-the-timeout">
+<h2>Setting the Timeout<a class="headerlink" href="#setting-the-timeout" title="Permalink to this headline">¶</a></h2>
+<p>It is good practice to set the value for the timeout period of the multimeter next, in milliseconds:
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-the-temperature-units">
+<h2>Setting the Temperature Units<a class="headerlink" href="#setting-the-temperature-units" title="Permalink to this headline">¶</a></h2>
+<p>If you are using temperature probes, set the units (<code class="code docutils literal notranslate"><span class="pre">C</span></code>,:code:<cite>F</cite>, or <code class="code docutils literal notranslate"><span class="pre">K</span></code>):
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">set_temperature_units</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-up-the-channels">
+<h2>Setting Up the Channels<a class="headerlink" href="#setting-up-the-channels" title="Permalink to this headline">¶</a></h2>
+<p>Before you can take measurements, you must specify what channels you want to measure and what type of measurement you are taking for each. To set a list of channels to be scanned as the proper measurement types, please use the multimeter object’s <code class="xref py py-class docutils literal notranslate"><span class="pre">define_channels(list</span> <span class="pre">of</span> <span class="pre">channels,</span> <span class="pre">MeasurementType)</span></code> function.</p>
+<p>In the following example, we set the channels 101, 102, and 103 to act as K type thermocouples, with the default internal reference junction (<cite>INT</cite>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
+    <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">thermocouple</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>After all channels are defined, and before calling the <cite>scan()</cite> function, please run the scan setup function as follows:
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">setup_scan</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will set up the multimeter’s scan function such that it scans the channels in the order they were set up.</p>
+</div>
+<div class="section" id="completing-a-scan">
+<h2>Completing a Scan<a class="headerlink" href="#completing-a-scan" title="Permalink to this headline">¶</a></h2>
+<p>To scan the channels, call the scan function, passing the timestamp (in seconds) you wish to be associated with the start of the scan, as follows:
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">my_multimeter</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The returned object is of the type [ScanResult](scanresult.md).</p>
+</div>
+<div class="section" id="writing-a-message-on-the-screen">
+<h2>Writing a Message on the Screen<a class="headerlink" href="#writing-a-message-on-the-screen" title="Permalink to this headline">¶</a></h2>
+<p>To write a message on the multimeter’s screen use the following:
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="s2">&quot;HELLO&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="safely-disconnecting">
+<h2>Safely Disconnecting<a class="headerlink" href="#safely-disconnecting" title="Permalink to this headline">¶</a></h2>
+<p>To safely disconnect from the multimeter, use the following:
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="advanced-usage-scpi-commands">
+<h2>Advanced Usage: SCPI Commands<a class="headerlink" href="#advanced-usage-scpi-commands" title="Permalink to this headline">¶</a></h2>
+<p>To directly read, write, or query the device using the SCPI commands, use the following functions:
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">my_multimeter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">my_multimeter</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="measurement-type.html" class="btn btn-neutral float-right" title="Measurement Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="The py2700 Digital Multimeter Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Noah Paladino
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
