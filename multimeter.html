@@ -165,24 +165,21 @@
 <div class="section" id="connection">
 <h2>Connection<a class="headerlink" href="#connection" title="Permalink to this headline">¶</a></h2>
 <p>To connect to the device, create a <code class="xref py py-class docutils literal notranslate"><span class="pre">Multimeter</span></code> object, passing the connection string as the initialization parameter.</p>
-<p>In the following example we use a TCP/IP Socket connection to a multimeter at IP address 192.168.69.102 and connecting to port 1394:
-.. code-block:</p>
+<p>In the following example we use a TCP/IP Socket connection to a multimeter at IP address 192.168.69.102 and connecting to port 1394:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span> <span class="o">=</span> <span class="n">py2700</span><span class="o">.</span><span class="n">Multimeter</span><span class="p">(</span><span class="s1">&#39;TCPIP::192.168.69.102::1394::SOCKET&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="setting-the-timeout">
 <h2>Setting the Timeout<a class="headerlink" href="#setting-the-timeout" title="Permalink to this headline">¶</a></h2>
-<p>It is good practice to set the value for the timeout period of the multimeter next, in milliseconds:
-.. code-block:</p>
+<p>It is good practice to set the value for the timeout period of the multimeter next, in milliseconds:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="setting-the-temperature-units">
 <h2>Setting the Temperature Units<a class="headerlink" href="#setting-the-temperature-units" title="Permalink to this headline">¶</a></h2>
-<p>If you are using temperature probes, set the units (<code class="code docutils literal notranslate"><span class="pre">C</span></code>,:code:<cite>F</cite>, or <code class="code docutils literal notranslate"><span class="pre">K</span></code>):
-.. code-block:</p>
+<p>If you are using temperature probes, set the units (<code class="code docutils literal notranslate"><span class="pre">C</span></code>,:code:<cite>F</cite>, or <code class="code docutils literal notranslate"><span class="pre">K</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">set_temperature_units</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -195,8 +192,7 @@
     <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">thermocouple</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>After all channels are defined, and before calling the <cite>scan()</cite> function, please run the scan setup function as follows:
-.. code-block:</p>
+<p>After all channels are defined, and before calling the <cite>scan()</cite> function, please run the scan setup function as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">setup_scan</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -204,8 +200,7 @@
 </div>
 <div class="section" id="completing-a-scan">
 <h2>Completing a Scan<a class="headerlink" href="#completing-a-scan" title="Permalink to this headline">¶</a></h2>
-<p>To scan the channels, call the scan function, passing the timestamp (in seconds) you wish to be associated with the start of the scan, as follows:
-.. code-block:</p>
+<p>To scan the channels, call the scan function, passing the timestamp (in seconds) you wish to be associated with the start of the scan, as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">my_multimeter</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -213,24 +208,21 @@
 </div>
 <div class="section" id="writing-a-message-on-the-screen">
 <h2>Writing a Message on the Screen<a class="headerlink" href="#writing-a-message-on-the-screen" title="Permalink to this headline">¶</a></h2>
-<p>To write a message on the multimeter’s screen use the following:
-.. code-block:</p>
+<p>To write a message on the multimeter’s screen use the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="s2">&quot;HELLO&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="safely-disconnecting">
 <h2>Safely Disconnecting<a class="headerlink" href="#safely-disconnecting" title="Permalink to this headline">¶</a></h2>
-<p>To safely disconnect from the multimeter, use the following:
-.. code-block:</p>
+<p>To safely disconnect from the multimeter, use the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="advanced-usage-scpi-commands">
 <h2>Advanced Usage: SCPI Commands<a class="headerlink" href="#advanced-usage-scpi-commands" title="Permalink to this headline">¶</a></h2>
-<p>To directly read, write, or query the device using the SCPI commands, use the following functions:
-.. code-block:</p>
+<p>To directly read, write, or query the device using the SCPI commands, use the following functions:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">my_multimeter</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">my_multimeter</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
