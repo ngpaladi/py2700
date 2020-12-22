@@ -1,3 +1,11 @@
+"""
+==============
+Multimeter.py
+==============
+
+"""
+
+
 from py2700.MeasurementType import MeasurementType
 import time
 import pyvisa as visa
@@ -13,7 +21,9 @@ def RemoveUnits(string: str):
 
 
 class Channel:
-    # Channel Definition
+    """
+    The :class:`Channel` class associates each channel on the multimeter with a :class:`MeasurementType` and performs the necessary initialization procedure.
+    """
     def __init__(self, id: int, measurement_type: MeasurementType, unit: str):
         self.id = id
         self.measurement_type = measurement_type
@@ -29,6 +39,9 @@ class Channel:
 
 
 class Measurement:
+    """
+    The :class:`Measurement` class stores a reading taken from a particular channel.
+    """
     # Measurement Definition
     def __init__(self, channel: Channel, time: float, value: float):
         self.channel_id = int(channel.id)
@@ -38,8 +51,9 @@ class Measurement:
 
 
 class ScanResult:
-    # Helper class for ease of reading returned values
-
+    """
+     The :class:`ScanResult` class exists for ease of reading returned values. The attribute :class:`ScanResult.readings` is a dictionary of :class:`Measurement` objects with channel IDs (int) as keys.
+    """
     def __init__(self, channels: list, raw_result: list, timestamp: float):
         self.raw_result = list(raw_result)
         self.channels = list(channels)
@@ -61,6 +75,13 @@ class ScanResult:
             entry_index += 1
 
     def make_csv_row(self):
+        """Generate a CSV format row of readings in sequence.
+
+        Returns
+        -------
+        str
+            A string representing a row in CSV format of the data values obtained during a measurement.
+        """
         string = ""
         for channel in self.channels:
             string = string + \
@@ -69,6 +90,13 @@ class ScanResult:
         return string[:-1]+"\n"
 
     def make_csv_header(self):
+        """Generate a CSV format row of column headings for readings.
+
+        Returns
+        -------
+        str
+            A string giving headers for a CSV file corresponding to the CSV format for data output.
+        """
         string = ""
         for channel in self.channels:
             string = string + "Channel " + \
@@ -81,9 +109,36 @@ class ScanResult:
 
 
 class Multimeter:
+    """The :class:`Multimeter` class serves as an interface for the digital multimeter. It starts a VISA resource manager with a given 
+
+    Parameters
+    ----------
+    connection_string : str
+        The string used to connect to the multimeter, typically something like :code:`TCPIP::192.168.69.102::1394::SOCKET` for a multimeter attached to the network with an IP address of 192.168.69.102 and receiving commands using a socket connection to port 1394.
+    timeout : int, optional
+        The number of milliseconds to wait before the connection for a given command sent to the multimeter times out, by default 0
+
+    Raises
+    ------
+    invalid_unit_exception
+        Raised when an invalid type of unit is defined for a channel.
+    no_channels_exception
+        Raised when channels to measure have not been defined.
+    not_set_up_exception
+        Raised when the channel setup process has not been completed.
+    """
     # Class for interacting with the multimeter
 
     def __init__(self, connection_string: str, timeout:int = 0):
+        """Initialize the :class:`Multimeter` object.
+
+        Parameters
+        ----------
+        connection_string : str
+            The string used to connect to the multimeter, typically something like :code:`TCPIP::192.168.69.102::1394::SOCKET` for a multimeter attached to the network with an IP address of 192.168.69.102 and receiving commands using a socket connection to port 1394.
+        timeout : int, optional
+            The number of milliseconds to wait before the connection for a given command sent to the multimeter times out, by default 0
+        """
         self.connection_string = connection_string
         self.channels = []
         self.connected = False
@@ -109,6 +164,18 @@ class Multimeter:
 
         self.connected = True
     def set_temperature_units(self, temperature_units:str):
+        """This sets the units used when reading in the temperature from a temperature probe.
+
+        Parameters
+        ----------
+        temperature_units : str
+            The units for temperature probes (:code:`C`,:code:`F`, or :code:`K`).
+
+        Raises
+        ------
+        invalid_unit_exception
+            Raised when an invalid type of unit is defined for a channel.
+        """
         temperature_units = temperature_units.upper()
         
         if not (temperature_units in ['K','F','C']):
@@ -118,6 +185,15 @@ class Multimeter:
         self.device.write("UNIT:TEMP "+self.temperature_units)
 
     def define_channels(self, channel_ids: list, measurement_type: MeasurementType):
+        """Used to define a group of channels to make a certain type of measurement.
+
+        Parameters
+        ----------
+        channel_ids : list
+            A list of one or more integer channel numbers corresponding to a given :class:`MeasurementType`.
+        measurement_type : MeasurementType
+            A :class:`MeasurementType` corresponding to the type of measurement you would like to make for these channels. Can be manually defined but usually uses a predefined type from :class:`py2700.MeasurementType`.
+        """
         units = ""
         if measurement_type.function == "TEMP":
             units = self.temperature_units
@@ -132,6 +208,13 @@ class Multimeter:
             self.channels.append(Channel(ch,measurement_type, units))
 
     def setup_scan(self):
+        """Must be called before scanning channels. This completes the setup process for the multimeter after all the channels have been defined.
+
+        Raises
+        ------
+        no_channels_exception
+            Raised when channels to measure have not been defined.
+        """
         if len(self.channels) <= 0:
             raise no_channels_exception
 
@@ -159,6 +242,23 @@ class Multimeter:
         self.setup = True
     
     def scan(self, timestamp:float):
+        """[summary]
+
+        Parameters
+        ----------
+        timestamp : float
+            [description]
+
+        Returns
+        -------
+        ScanResult
+            Returns a :class:`ScanResult` object that contains the result of the last scan.
+
+        Raises
+        ------
+        not_set_up_exception
+            Raised when the channel setup process has not been completed.
+        """
         if not self.setup:
             raise not_set_up_exception
 
