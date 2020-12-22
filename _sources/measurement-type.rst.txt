@@ -62,12 +62,13 @@ The Keithley 2700 can read in data from a variety of temperature probe types.
 
 First, ensure you have set units for temperature :
 (`C`,`F`, or `K`):
+
 .. code-block::
 
     my_multimeter.set_temperature_units('C')
 
 Thermocouple
------------------
+***************
 Thermocouples can be of the type J, K, N, T, E, R, S, or B with junction type internal (:code:`INT`), external (:code:`EXT`), or simulated (:code:`SIM`). The default junction type is internal. Using a simulated reference junction requires an additional float to set the simulated junction temperature (0 by default).
 
 .. code-block::

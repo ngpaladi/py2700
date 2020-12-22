@@ -96,8 +96,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#resistance">Resistance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#temperature">Temperature</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#thermocouple">Thermocouple</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#temperature">Temperature</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#thermocouple">Thermocouple</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#frtd">FRTD</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#thermistor">Thermistor</a></li>
 </ul>
@@ -218,18 +218,17 @@
 <h2>Temperature<a class="headerlink" href="#temperature" title="Permalink to this headline">¶</a></h2>
 <p>The Keithley 2700 can read in data from a variety of temperature probe types.</p>
 <p>First, ensure you have set units for temperature :
-(<cite>C</cite>,`F`, or <cite>K</cite>):
-.. code-block:</p>
+(<cite>C</cite>,`F`, or <cite>K</cite>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">set_temperature_units</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
 <div class="section" id="thermocouple">
-<h2>Thermocouple<a class="headerlink" href="#thermocouple" title="Permalink to this headline">¶</a></h2>
+<h3>Thermocouple<a class="headerlink" href="#thermocouple" title="Permalink to this headline">¶</a></h3>
 <p>Thermocouples can be of the type J, K, N, T, E, R, S, or B with junction type internal (<code class="code docutils literal notranslate"><span class="pre">INT</span></code>), external (<code class="code docutils literal notranslate"><span class="pre">EXT</span></code>), or simulated (<code class="code docutils literal notranslate"><span class="pre">SIM</span></code>). The default junction type is internal. Using a simulated reference junction requires an additional float to set the simulated junction temperature (0 by default).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_multimeter</span><span class="o">.</span><span class="n">define_channels</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">103</span><span class="p">],</span>
     <span class="n">py2700</span><span class="o">.</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">thermocouple</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">,</span><span class="s1">&#39;SIM&#39;</span><span class="p">,</span><span class="mf">5.0</span><span class="p">))</span>
 </pre></div>
+</div>
 </div>
 <div class="section" id="frtd">
 <h3>FRTD<a class="headerlink" href="#frtd" title="Permalink to this headline">¶</a></h3>
