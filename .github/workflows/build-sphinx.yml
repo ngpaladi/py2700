@@ -17,9 +17,9 @@ jobs:
         pre-build-command: "pip install sphinx-rtd-theme"
     - name: Commit Documentation Changes
       run: |
-        git clone https://github.com/ngpaladi/py2700.git --branch gh-pages --single-branch gh-pages
-        cp -r docs/_build/html/* gh-pages/
-        cd gh-pages
+        git clone https://github.com/ngpaladi/py2700.git --branch docs --single-branch docs
+        cp -r sphinx-docs/_build/html/* docs/
+        cd docs
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
@@ -27,6 +27,6 @@ jobs:
     - name: Push Documentation Changes
       uses: ad-m/github-push-action@master
       with:
-        branch: gh-pages
-        directory: gh-pages
+        branch: docs
+        directory: docs
         github_token: ${{ secrets.GITHUB_TOKEN }}
