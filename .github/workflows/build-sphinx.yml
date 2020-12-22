@@ -24,7 +24,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
-        git commit -m "Update Sphinx Documentation" -a || true
+        git commit -m "Update Sphinx Documentation" -a
     - name: Push Documentation Changes
       uses: ad-m/github-push-action@master
       with:
