@@ -15,10 +15,13 @@ not_set_up_exception = Exception("Multimeter not set up properly")
 no_channels_exception = Exception("No channels have been defined to set up")
 
 def RemoveUnits(string: str):
-    while not (string[-1] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']):
-        string = string[:-1]
-    return string
-
+    i = string.find("OHM4")
+    if i > 0:
+        return string[0:i]
+    else:
+        while not (string[-1] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']):
+            string = string[:-1]
+        return string
 
 class Channel:
     """
@@ -203,6 +206,8 @@ class Multimeter:
             units = "A"
         elif measurement_type.function == "RES":
             units = "Ohms"
+        elif measurement_type.function == "FRES":
+            units = "Ohm4"
 
         for ch in channel_ids:
             self.channels.append(Channel(ch,measurement_type, units))
