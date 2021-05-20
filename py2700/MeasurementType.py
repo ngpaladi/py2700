@@ -117,3 +117,23 @@ class MeasurementType:
         else:
             setup_commands.append("RES:RANG "+str(reading_range))
         return MeasurementType("RES", "RES", setup_commands)
+
+    @classmethod
+    def fresistance(cls, reading_range: int = -1, averaging: int = -1):
+        # Defines a 4-wire resistance reading
+
+        setup_commands = ["FUNC 'FRES'"]
+        if reading_range <= 0 or reading_range > 120*(10**6):
+            setup_commands.append("FRES:RANG:AUTO ON")
+        else:
+            setup_commands.append("FRES:RANG "+str(reading_range))
+
+        if averaging > 1:
+            setup_commands.append("FRES:NPLC 1")        # repeat-rate: 1 PLC (Medium) (Europe: 50 Hz)
+            setup_commands.append("FRES:AVER:WIND 2")   # average within +- 2% value
+            setup_commands.append("FRES:AVER:COUN %d" % (averaging))   # average over n samples
+            setup_commands.append("FRES:AVER:TCON REP") # repeat-mode (average after reading the n samples)
+            setup_commands.append("FRES:AVER:STAT ON")  # turn averaging on
+
+        return MeasurementType("FRES", "FRES", setup_commands)
+
